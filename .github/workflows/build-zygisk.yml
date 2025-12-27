@@ -1,0 +1,31 @@
+name: Build Zygisk Module
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: nttld/setup-ndk@v1
+      with:
+        ndk-version: r26d
+    - name: Build so
+      run: |
+        cd zygisk
+        ndk-build APP_ABI=arm64-v8a APP_PLATFORM=android-26
+    - name: Assemble module
+      run: |
+        mkdir -p out/module/zygisk
+        cp -r module/* out/module/
+        cp zygisk/libs/arm64-v8a/*.so out/module/zygisk/arm64-v8a.so
+        cp zygisk/zygisk.json out/module/zygisk/
+    - name: Zip
+      run: |
+        cd out
+        zip -r kawakami-fix.zip module
+    - uses: actions/upload-artifact@v4
+      with:
+        name: kawakami-fix
+        path: out/kawakami-fix.zip
