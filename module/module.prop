@@ -1,0 +1,6 @@
+id=kawakami_fix
+name=川上富江·Android15-漏洞Fix
+version=1.0
+versionCode=1
+author=Security Research
+description=Monitoring mitigation for unauthorized disk enumeration
