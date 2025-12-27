@@ -1,0 +1,7 @@
+{
+  "allow": [
+    "com.android.systemui",
+    "com.android.settings",
+    "com.google.android.gms"
+  ]
+}
